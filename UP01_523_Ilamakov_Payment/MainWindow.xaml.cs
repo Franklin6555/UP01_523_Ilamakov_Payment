@@ -24,6 +24,7 @@ namespace UP01_523_Ilamakov_Payment
         public MainWindow()
         {
             InitializeComponent();
+            MainFrame.Navigate(new UP01_Ilamakov_Payment.Pages.AuthPage());
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {

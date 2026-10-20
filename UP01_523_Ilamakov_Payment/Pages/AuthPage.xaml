@@ -1,0 +1,73 @@
+﻿<Page x:Class="UP01_Ilamakov_Payment.Pages.AuthPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d"
+      Title="Авторизация"
+      Background="{StaticResource BackgroundBrush}">
+
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="420">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <TextBlock Text="Авторизация"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,30"
+                   Grid.Row="0"/>
+
+        <!-- Логин -->
+        <Label Content="Логин" Grid.Row="1" Margin="0,0,0,4"/>
+        <TextBox x:Name="TextBoxLogin"
+                 Grid.Row="2"
+                 ToolTip="Введите логин"
+                 Margin="0,0,0,16"/>
+
+        <!-- Пароль -->
+        <Label Content="Пароль" Grid.Row="3" Margin="0,0,0,4"/>
+        <PasswordBox x:Name="PasswordBox"
+                     Grid.Row="4"
+                     ToolTip="Введите пароль"
+                     Margin="0,0,0,20"/>
+
+        <!-- Кнопки -->
+        <StackPanel Grid.Row="5" Orientation="Vertical" HorizontalAlignment="Center">
+            <Button x:Name="ButtonEnter"
+                    Content="Вход"
+                    Width="200"
+                    Click="ButtonEnter_OnClick"
+                    ToolTip="Войти в систему"/>
+
+            <Button x:Name="ButtonReg"
+                    Content="Регистрация"
+                    Width="200"
+                    Click="ButtonReg_Click"
+                    ToolTip="Перейти к регистрации"
+                    Background="{StaticResource AccentBrush}"/>
+
+            <Button x:Name="ButtonChangePassword"
+                    Content="Смена пароля"
+                    Width="200"
+                    Click="ButtonChangePassword_Click"
+                    ToolTip="Сменить пароль"
+                    Background="{StaticResource GrayBrush}"/>
+        </StackPanel>
+
+        <StackPanel x:Name="CaptchaPanel"
+                    Grid.Row="6"
+                    Visibility="Collapsed"
+                    Margin="0,20,0,0"
+                    HorizontalAlignment="Center">
+        </StackPanel>
+    </Grid>
+</Page>
