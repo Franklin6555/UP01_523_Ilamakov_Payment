@@ -87,12 +87,36 @@ namespace UP01_523_Ilamakov_Payment.Pages
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Позже");
+            var window = new PaymentEditWindow();
+            if (window.ShowDialog() == true)
+            {
+                LoadPayments();
+            }
         }
 
         private void ButtonEdit_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Позже");
+            dynamic selected = DataGridPayments.SelectedItem;
+            if (selected == null)
+            {
+                MessageBox.Show("Выберите запись для редактирования", "Внимание");
+                return;
+            }
+
+            Payment paymentToEdit = null;
+            using (var db = new DB_Ilamakov_523_PaymentEntities())
+            {
+                int id = selected.ID;
+                paymentToEdit = db.Payments.FirstOrDefault(p => p.ID == id);
+            }
+
+            if (paymentToEdit == null) return;
+
+            var window = new PaymentEditWindow(paymentToEdit);
+            if (window.ShowDialog() == true)
+            {
+                LoadPayments();
+            }
         }
 
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
