@@ -28,6 +28,30 @@ namespace UP01_Ilamakov_Payment.Pages
                         .Select(x => x.ToString("X2")));
             }
         }
+        private string currentCaptcha = "";
+
+        // Генерация капчи
+        private void GenerateCaptcha()
+        {
+            const string chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+            var random = new Random();
+            currentCaptcha = new string(Enumerable.Repeat(chars, 5)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+
+            CaptchaText.Text = currentCaptcha;
+            TextBoxCaptcha.Text = "";
+        }
+
+        private void CaptchaSwitch()
+        {
+            CaptchaPanel.Visibility = Visibility.Visible;
+            GenerateCaptcha();
+        }
+
+        private void CaptchaRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            GenerateCaptcha();
+        }
 
         private void ButtonEnter_OnClick(object sender, RoutedEventArgs e)
         {
@@ -39,13 +63,26 @@ namespace UP01_Ilamakov_Payment.Pages
                 return;
             }
 
+            // Проверка капчи, если она видна
+            if (CaptchaPanel.Visibility == Visibility.Visible)
+            {
+                if (string.IsNullOrWhiteSpace(TextBoxCaptcha.Text) ||
+                    TextBoxCaptcha.Text.ToUpper() != currentCaptcha)
+                {
+                    MessageBox.Show("Неверный код капчи", "Ошибка",
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                    GenerateCaptcha();
+                    return;
+                }
+            }
+
             string hashedPassword = GetHash(PasswordBox.Password);
 
             try
             {
-                using (var db = new DB_Ilamakov_523_PaymentEntities())   // ← если контекст называется иначе — поправь
+                using (var db = new DB_Ilamakov_523_PaymentEntities())
                 {
-                    var user = db.Users          // ← если сущность называется User, то db.Users или db.User
+                    var user = db.Users
                         .AsNoTracking()
                         .FirstOrDefault(u => u.Login == TextBoxLogin.Text &&
                                              u.Password == hashedPassword);
@@ -58,15 +95,17 @@ namespace UP01_Ilamakov_Payment.Pages
 
                         if (failedAttempts >= 3)
                         {
-                            MessageBox.Show("Слишком много неудачных попыток. Позже добавим капчу.", "Внимание");
+                            CaptchaSwitch();
                         }
                         return;
                     }
 
-                    // Успешный вход
+                    // Успешный вход — сбрасываем счётчик и капчу
+                    failedAttempts = 0;
+                    CaptchaPanel.Visibility = Visibility.Collapsed;
+
                     MessageBox.Show($"Добро пожаловать, {user.FIO ?? user.Login}!", "Успех");
 
-                    // Пока просто сообщение. Позже добавим переход на страницы по ролям
                     switch (user.Role)
                     {
                         case "Admin":
@@ -82,7 +121,7 @@ namespace UP01_Ilamakov_Payment.Pages
                             break;
 
                         default:
-                            MessageBox.Show("Неизвестная роль пользователя");
+                            MessageBox.Show($"Неизвестная роль: {user.Role}");
                             break;
                     }
                 }

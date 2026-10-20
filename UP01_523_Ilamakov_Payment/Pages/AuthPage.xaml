@@ -63,11 +63,44 @@
                     Background="{StaticResource GrayBrush}"/>
         </StackPanel>
 
+        <!-- Капча -->
         <StackPanel x:Name="CaptchaPanel"
-                    Grid.Row="6"
-                    Visibility="Collapsed"
-                    Margin="0,20,0,0"
-                    HorizontalAlignment="Center">
+            Grid.Row="6"
+            Visibility="Collapsed"
+            Margin="0,25,0,0"
+            HorizontalAlignment="Center">
+
+            <TextBlock Text="Введите код с картинки:"
+               HorizontalAlignment="Center"
+               Margin="0,0,0,8"/>
+
+            <Border BorderBrush="{StaticResource PrimaryBrush}"
+            BorderThickness="1"
+            CornerRadius="4"
+            Padding="10"
+            Background="White"
+            HorizontalAlignment="Center"
+            Margin="0,0,0,10">
+                <TextBlock x:Name="CaptchaText"
+                   FontSize="22"
+                   FontWeight="Bold"
+                   FontFamily="Consolas"
+                   HorizontalAlignment="Center"/>
+            </Border>
+
+            <TextBox x:Name="TextBoxCaptcha"
+             Width="180"
+             HorizontalAlignment="Center"
+             ToolTip="Введите код с картинки"
+             Margin="0,0,0,10"/>
+
+            <Button Content="Обновить код"
+            Width="140"
+            Height="30"
+            FontSize="12"
+            Click="CaptchaRefresh_Click"
+            Background="{StaticResource GrayBrush}"
+            HorizontalAlignment="Center"/>
         </StackPanel>
     </Grid>
 </Page>
