@@ -1,0 +1,63 @@
+﻿<Page x:Class="UP01_523_Ilamakov_Payment.Pages.RegPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d"
+      Title="Регистрация"
+      Background="{StaticResource BackgroundBrush}">
+
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="420">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Регистрация"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,25"
+                   Grid.Row="0"/>
+
+        <!-- ФИО -->
+        <Label Content="ФИО" Grid.Row="1" Margin="0,0,0,4"/>
+        <TextBox x:Name="TextBoxFIO" Grid.Row="2" ToolTip="Введите ФИО" Margin="0,0,0,12"/>
+
+        <!-- Логин -->
+        <Label Content="Логин" Grid.Row="3" Margin="0,0,0,4"/>
+        <TextBox x:Name="TextBoxLogin" Grid.Row="4" ToolTip="Придумайте логин" Margin="0,0,0,12"/>
+
+        <!-- Пароль -->
+        <Label Content="Пароль" Grid.Row="5" Margin="0,0,0,4"/>
+        <PasswordBox x:Name="PasswordBox" Grid.Row="6" ToolTip="Придумайте пароль" Margin="0,0,0,12"/>
+
+        <!-- Подтверждение пароля -->
+        <Label Content="Подтверждение пароля" Grid.Row="7" Margin="0,0,0,4"/>
+        <PasswordBox x:Name="PasswordBoxConfirm" Grid.Row="8" ToolTip="Повторите пароль" Margin="0,0,0,20"/>
+
+        <!-- Кнопки -->
+        <StackPanel Grid.Row="9" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button x:Name="ButtonRegister"
+                    Content="Зарегистрироваться"
+                    Width="180"
+                    Click="ButtonRegister_Click"
+                    ToolTip="Создать аккаунт"/>
+
+            <Button x:Name="ButtonBack"
+                    Content="Назад"
+                    Width="120"
+                    Click="ButtonBack_Click"
+                    Background="{StaticResource GrayBrush}"
+                    ToolTip="Вернуться к авторизации"/>
+        </StackPanel>
+    </Grid>
+</Page>

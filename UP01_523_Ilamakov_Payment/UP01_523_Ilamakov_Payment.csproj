@@ -73,6 +73,9 @@
     <Compile Include="Category.cs">
       <DependentUpon>PaymentModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Pages\RegPage.xaml.cs">
+      <DependentUpon>RegPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Payment.cs">
       <DependentUpon>PaymentModel.tt</DependentUpon>
     </Compile>
@@ -94,6 +97,10 @@
       <DependentUpon>PaymentModel.tt</DependentUpon>
     </Compile>
     <Page Include="Pages\AuthPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\RegPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

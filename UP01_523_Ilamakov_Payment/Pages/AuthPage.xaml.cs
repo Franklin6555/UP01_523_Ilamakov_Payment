@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using UP01_523_Ilamakov_Payment;
+using UP01_523_Ilamakov_Payment.Pages;
 
 namespace UP01_Ilamakov_Payment.Pages
 {
@@ -94,7 +95,7 @@ namespace UP01_Ilamakov_Payment.Pages
 
         private void ButtonReg_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Страница регистрации будет создана следующим шагом");
+            NavigationService?.Navigate(new RegPage());
         }
 
         private void ButtonChangePassword_Click(object sender, RoutedEventArgs e)
