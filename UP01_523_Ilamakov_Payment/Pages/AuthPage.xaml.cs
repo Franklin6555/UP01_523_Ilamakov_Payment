@@ -135,10 +135,5 @@ namespace UP01_Ilamakov_Payment.Pages
         {
             NavigationService?.Navigate(new RegPage());
         }
-
-        private void ButtonChangePassword_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Страница смены пароля будет создана позже");
-        }
     }
 }

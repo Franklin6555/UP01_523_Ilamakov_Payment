@@ -89,7 +89,7 @@ namespace UP01_523_Ilamakov_Payment.Pages
 
         private void ButtonChangePass_Click(object sender, RoutedEventArgs e)
         {
-            //NavigationService?.Navigate(new ChangePassPage(currentUser));
+            NavigationService?.Navigate(new ChangePassPage(currentUser));
         }
 
         private void ButtonLogout_Click(object sender, RoutedEventArgs e)

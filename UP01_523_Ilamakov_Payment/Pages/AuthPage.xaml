@@ -54,13 +54,6 @@
                     Click="ButtonReg_Click"
                     ToolTip="Перейти к регистрации"
                     Background="{StaticResource AccentBrush}"/>
-
-            <Button x:Name="ButtonChangePassword"
-                    Content="Смена пароля"
-                    Width="200"
-                    Click="ButtonChangePassword_Click"
-                    ToolTip="Сменить пароль"
-                    Background="{StaticResource GrayBrush}"/>
         </StackPanel>
 
         <!-- Капча -->
