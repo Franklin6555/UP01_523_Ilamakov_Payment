@@ -116,8 +116,7 @@ namespace UP01_Ilamakov_Payment.Pages
 
                         case "User":
                         case "Пользователь":
-                            MessageBox.Show("Вы вошли как Пользователь");
-                            // NavigationService?.Navigate(new UserPage());
+                            NavigationService?.Navigate(new UserPage(user));
                             break;
 
                         default:
