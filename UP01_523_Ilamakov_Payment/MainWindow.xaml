@@ -5,8 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UP01_523_Ilamakov_Payment"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Учёт платежей"
+        Height="600" Width="900"
+        WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded">
+    
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="45"/>
+        </Grid.RowDefinitions>
+
+        <Button x:Name="ButtonBack"
+                Content="Назад"
+                Width="100"
+                Height="30"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Margin="15,0,0,0"
+                Click="ButtonBack_Click"
+                ToolTip="Вернуться на предыдущую страницу"/>
+
+        <Frame x:Name="MainFrame"
+               Grid.Row="1"
+               NavigationUIVisibility="Hidden"
+               HorizontalAlignment="Stretch"
+               VerticalAlignment="Stretch"/>
+
+        <TextBlock x:Name="DateTimeNow"
+                   Grid.Row="2"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Center"
+                   Margin="0,0,20,0"
+                   FontSize="14"/>
     </Grid>
 </Window>
