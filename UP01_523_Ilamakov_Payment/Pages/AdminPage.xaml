@@ -1,0 +1,93 @@
+﻿<Page x:Class="UP01_523_Ilamakov_Payment.Pages.AdminPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d"
+      Title="Панель администратора"
+      Background="{StaticResource BackgroundBrush}">
+
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <TextBlock Text="Панель администратора — Все платежи"
+                   FontSize="20"
+                   FontWeight="Bold"
+                   Margin="0,0,0,12"
+                   Grid.Row="0"/>
+
+        <!-- Панель инструментов -->
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,0,0,12">
+            <TextBox x:Name="TextBoxSearch"
+                     Width="200"
+                     Height="34"
+                     ToolTip="Поиск по названию"
+                     TextChanged="TextBoxSearch_TextChanged"/>
+
+            <ComboBox x:Name="ComboBoxCategory"
+                      Width="160"
+                      Height="34"
+                      Margin="8,0,0,0"
+                      DisplayMemberPath="Name"
+                      SelectedValuePath="ID"
+                      SelectionChanged="ComboBoxCategory_SelectionChanged"/>
+
+            <Button Content="Добавить" Width="110" Margin="8,0,0,0"
+                    Click="ButtonAdd_Click" Background="{StaticResource PrimaryBrush}"/>
+
+            <Button Content="Редактировать" Width="130" Margin="8,0,0,0"
+                    Click="ButtonEdit_Click" Background="{StaticResource AccentBrush}"/>
+
+            <Button Content="Удалить" Width="110" Margin="8,0,0,0"
+                    Click="ButtonDelete_Click" Background="{StaticResource DangerBrush}"/>
+
+            <Button Content="Сбросить" Width="100" Margin="8,0,0,0"
+                    Click="ButtonReset_Click" Background="{StaticResource GrayBrush}"/>
+        </StackPanel>
+
+        <!-- Таблица -->
+        <DataGrid x:Name="DataGridPayments"
+                  Grid.Row="2"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  CanUserAddRows="False"
+                  SelectionMode="Single"
+                  HeadersVisibility="Column"
+                  GridLinesVisibility="Horizontal"
+                  BorderBrush="{StaticResource PrimaryBrush}"
+                  BorderThickness="1"
+                  MouseDoubleClick="DataGridPayments_MouseDoubleClick">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="50"/>
+                <DataGridTextColumn Header="Дата" Binding="{Binding Date, StringFormat=dd.MM.yyyy}" Width="100"/>
+                <DataGridTextColumn Header="Пользователь" Binding="{Binding User.FIO}" Width="160"/>
+                <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="Категория" Binding="{Binding Category.Name}" Width="120"/>
+                <DataGridTextColumn Header="Кол-во" Binding="{Binding Num}" Width="70"/>
+                <DataGridTextColumn Header="Цена" Binding="{Binding Price}" Width="90"/>
+                <DataGridTextColumn Header="Сумма" Binding="{Binding Total}" Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Нижняя панель -->
+        <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="0,12,0,0" HorizontalAlignment="Right">
+            <Button Content="Диаграмма" Width="130" Click="ButtonChart_Click"
+                    Background="{StaticResource SecondaryBrush}"/>
+            <Button Content="Экспорт Word" Width="130" Margin="8,0,0,0"
+                    Click="ButtonExportWord_Click"/>
+            <Button Content="Экспорт Excel" Width="130" Margin="8,0,0,0"
+                    Click="ButtonExportExcel_Click"/>
+            <Button Content="Сменить пароль" Width="140" Margin="8,0,0,0"
+                    Click="ButtonChangePass_Click" Background="{StaticResource AccentBrush}"/>
+            <Button Content="Выйти" Width="110" Margin="8,0,0,0"
+                    Click="ButtonLogout_Click" Background="{StaticResource DangerBrush}"/>
+        </StackPanel>
+    </Grid>
+</Page>

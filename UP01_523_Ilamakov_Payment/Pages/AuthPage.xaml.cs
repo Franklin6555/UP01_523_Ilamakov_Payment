@@ -111,7 +111,7 @@ namespace UP01_Ilamakov_Payment.Pages
                         case "Admin":
                         case "Администратор":
                             MessageBox.Show("Вы вошли как Администратор");
-                            // NavigationService?.Navigate(new AdminPage());
+                            NavigationService?.Navigate(new AdminPage(user));
                             break;
 
                         case "User":
