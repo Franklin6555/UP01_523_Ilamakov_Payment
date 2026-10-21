@@ -167,14 +167,16 @@ namespace UP01_523_Ilamakov_Payment.Pages
             window.ShowDialog();
         }
 
+
+
         private void ButtonExportWord_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 var dialog = new Microsoft.Win32.SaveFileDialog
                 {
-                    Filter = "Документ Word (*.doc)|*.doc",
-                    FileName = $"Отчёт_платежи_{DateTime.Now:yyyy-MM-dd}.doc"
+                    Filter = "Word (*.docx)|*.docx",
+                    FileName = $"Платежи_{DateTime.Now:yyyy-MM-dd}.docx"
                 };
 
                 if (dialog.ShowDialog() != true) return;
@@ -187,47 +189,75 @@ namespace UP01_523_Ilamakov_Payment.Pages
                         .OrderByDescending(p => p.Date)
                         .ToList();
 
-                    var sb = new System.Text.StringBuilder();
-
-                    sb.AppendLine("<html>");
-                    sb.AppendLine("<head><meta charset='utf-8'></head>");
-                    sb.AppendLine("<body>");
-                    sb.AppendLine("<h2 style='text-align:center;'>Отчёт по платежам</h2>");
-                    sb.AppendLine($"<p>Дата формирования: {DateTime.Now:dd.MM.yyyy HH:mm}</p>");
-                    sb.AppendLine("<table border='1' cellpadding='5' cellspacing='0' style='border-collapse:collapse; width:100%;'>");
-                    sb.AppendLine("<tr style='background-color:#0198AF; color:white;'>");
-                    sb.AppendLine("<th>ID</th><th>Дата</th><th>Пользователь</th><th>Название</th><th>Категория</th><th>Кол-во</th><th>Цена</th><th>Сумма</th>");
-                    sb.AppendLine("</tr>");
-
-                    foreach (var p in data)
+                    using (var doc = Xceed.Words.NET.DocX.Create(dialog.FileName))
                     {
-                        sb.AppendLine("<tr>");
-                        sb.AppendLine($"<td>{p.ID}</td>");
-                        sb.AppendLine($"<td>{p.Date:dd.MM.yyyy}</td>");
-                        sb.AppendLine($"<td>{p.User?.FIO}</td>");
-                        sb.AppendLine($"<td>{p.Name}</td>");
-                        sb.AppendLine($"<td>{p.Category?.Name}</td>");
-                        sb.AppendLine($"<td>{p.Num}</td>");
-                        sb.AppendLine($"<td>{p.Price}</td>");
-                        sb.AppendLine($"<td>{p.Num * p.Price}</td>");
-                        sb.AppendLine("</tr>");
+                        doc.InsertParagraph("Отчёт по платежам")
+                            .Bold()
+                            .FontSize(16)
+                            .Alignment = Xceed.Document.NET.Alignment.center;
+
+                        doc.InsertParagraph(    
+                            $"Дата формирования: {DateTime.Now:dd.MM.yyyy HH:mm}");
+
+                        var table = doc.AddTable(data.Count + 1, 8);
+
+                        string[] headers =
+                        {
+                    "ID", "Дата", "Пользователь", "Название",
+                    "Категория", "Кол-во", "Цена", "Сумма"
+                };
+
+                        for (int i = 0; i < headers.Length; i++)
+                        {
+                            table.Rows[0].Cells[i].Paragraphs[0]
+                                .Append(headers[i])
+                                .Bold();
+                        }
+
+                        for (int i = 0; i < data.Count; i++)
+                        {
+                            var p = data[i];
+                            int row = i + 1;
+
+                            string[] values =
+                            {
+                        p.ID.ToString(),
+                        p.Date.ToString("dd.MM.yyyy"),
+                        p.User?.FIO ?? "",
+                        p.Name ?? "",
+                        p.Category?.Name ?? "",
+                        p.Num.ToString(),
+                        p.Price.ToString(),
+                        (p.Num * p.Price).ToString()
+                    };
+
+                            for (int j = 0; j < values.Length; j++)
+                            {
+                                table.Rows[row].Cells[j].Paragraphs[0]
+                                    .Append(values[j]);
+                            }
+                        }
+
+                        doc.InsertTable(table);
+                        doc.Save();
                     }
-
-                    sb.AppendLine("</table>");
-                    sb.AppendLine("</body></html>");
-
-                    System.IO.File.WriteAllText(dialog.FileName, sb.ToString(),
-                        new System.Text.UTF8Encoding(true));
                 }
 
-                MessageBox.Show("Отчёт успешно экспортирован в Word!", "Успех",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(
+                    "Отчёт успешно экспортирован в Word!",
+                    "Успех",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка экспорта:\n" + ex.Message, "Ошибка");
+                MessageBox.Show(
+                    "Ошибка экспорта:\n" + ex.Message,
+                    "Ошибка");
             }
         }
+
+
 
         private void ButtonExportExcel_Click(object sender, RoutedEventArgs e)
         {
@@ -301,6 +331,7 @@ namespace UP01_523_Ilamakov_Payment.Pages
                 MessageBox.Show("Ошибка экспорта:\n" + ex.Message, "Ошибка");
             }
         }
+
 
         private void ButtonChangePass_Click(object sender, RoutedEventArgs e)
         {
