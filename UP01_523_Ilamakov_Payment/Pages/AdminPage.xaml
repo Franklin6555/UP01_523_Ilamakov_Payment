@@ -56,6 +56,9 @@
 
             <Button Content="Категории" Width="120" Margin="8,0,0,0"
                     Click="ButtonCategories_Click" Background="{StaticResource SecondaryBrush}"/>
+
+            <Button Content="Пользователи" Width="130" Margin="8,0,0,0"
+            Click="ButtonUsers_Click" Background="{StaticResource SecondaryBrush}"/>
         </StackPanel>
 
         <!-- Таблица -->

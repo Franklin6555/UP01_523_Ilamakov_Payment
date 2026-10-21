@@ -1,0 +1,50 @@
+﻿<Page x:Class="UP01_523_Ilamakov_Payment.Pages.UsersPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d"
+      Title="Управление пользователями"
+      Background="{StaticResource BackgroundBrush}">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Управление пользователями"
+                   FontSize="22" FontWeight="Bold"
+                   Margin="0,0,0,15" Grid.Row="0"/>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,0,0,15">
+            <Button Content="Редактировать" Width="130"
+            Click="ButtonEdit_Click" Background="{StaticResource AccentBrush}"/>
+            <Button Content="Удалить" Width="120" Margin="8,0,0,0"
+            Click="ButtonDelete_Click" Background="{StaticResource DangerBrush}"/>
+            <Button Content="Назад" Width="110" Margin="8,0,0,0"
+            Click="ButtonBack_Click" Background="{StaticResource GrayBrush}"/>
+        </StackPanel>
+
+        <DataGrid x:Name="DataGridUsers"
+                  Grid.Row="2"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  CanUserAddRows="False"
+                  SelectionMode="Single"
+                  HeadersVisibility="Column"
+                  GridLinesVisibility="Horizontal"
+                  BorderBrush="{StaticResource PrimaryBrush}"
+                  BorderThickness="1"
+                  MouseDoubleClick="DataGridUsers_MouseDoubleClick">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="60"/>
+                <DataGridTextColumn Header="Логин" Binding="{Binding Login}" Width="140"/>
+                <DataGridTextColumn Header="ФИО" Binding="{Binding FIO}" Width="*"/>
+                <DataGridTextColumn Header="Роль" Binding="{Binding Role}" Width="120"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>

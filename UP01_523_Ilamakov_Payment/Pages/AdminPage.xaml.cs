@@ -454,6 +454,10 @@ namespace UP01_523_Ilamakov_Payment.Pages
         {
             NavigationService?.Navigate(new CategoryPage());
         }
+        private void ButtonUsers_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService?.Navigate(new UsersPage());
+        }
 
         private void ButtonChangePass_Click(object sender, RoutedEventArgs e)
         {
