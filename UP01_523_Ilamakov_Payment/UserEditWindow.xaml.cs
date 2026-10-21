@@ -61,9 +61,10 @@ namespace UP01_523_Ilamakov_Payment
 
                         // Меняем пароль только если ввели новый
                         if (!string.IsNullOrWhiteSpace(PasswordBox.Password))
-                            {
-                                existing.Password = Pages.AuthPage.GetHash(PasswordBox.Password);
-                            }
+                        {
+                            existing.Password =
+                                UP01_Ilamakov_Payment.Pages.AuthPage.GetHash(PasswordBox.Password);
+                        }
                     }
 
                     db.SaveChanges();
