@@ -173,7 +173,53 @@ namespace UP01_523_Ilamakov_Payment.Pages
 
         private void ButtonExportExcel_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Позже");
+            try
+            {
+                var dialog = new Microsoft.Win32.SaveFileDialog
+                {
+                    Filter = "Excel файлы (*.csv)|*.csv",
+                    FileName = $"Платежи_{DateTime.Now:yyyy-MM-dd}.csv"
+                };
+
+                if (dialog.ShowDialog() != true) return;
+
+                using (var db = new DB_Ilamakov_523_PaymentEntities())
+                {
+                    var data = db.Payments
+                        .Include("Category")
+                        .Include("User")
+                        .OrderByDescending(p => p.Date)
+                        .ToList();
+
+                    var sb = new System.Text.StringBuilder();
+                    // Заголовки
+                    sb.AppendLine("ID;Дата;Пользователь;Название;Категория;Количество;Цена;Сумма");
+
+                    foreach (var p in data)
+                    {
+                        string line = $"{p.ID};" +
+                                      $"{p.Date:dd.MM.yyyy};" +
+                                      $"\"{p.User?.FIO}\";" +
+                                      $"\"{p.Name}\";" +
+                                      $"\"{p.Category?.Name}\";" +
+                                      $"{p.Num};" +
+                                      $"{p.Price};" +
+                                      $"{p.Num * p.Price}";
+                        sb.AppendLine(line);
+                    }
+
+                    // UTF-8 с BOM, чтобы Excel правильно открыл кириллицу
+                    System.IO.File.WriteAllText(dialog.FileName, sb.ToString(),
+                        new System.Text.UTF8Encoding(true));
+                }
+
+                MessageBox.Show("Данные успешно экспортированы в Excel!", "Успех",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка экспорта:\n" + ex.Message, "Ошибка");
+            }
         }
 
         private void ButtonChangePass_Click(object sender, RoutedEventArgs e)
