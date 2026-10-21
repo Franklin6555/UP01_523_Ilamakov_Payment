@@ -86,6 +86,8 @@
                 Click="ButtonExportWord_Click"/>
                 <Button Content="Экспорт Excel" Width="130" Margin="8,0,0,0"
                 Click="ButtonExportExcel_Click"/>
+                <Button Content="Экспорт PDF"
+                Click="ButtonExportPdf_Click"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">

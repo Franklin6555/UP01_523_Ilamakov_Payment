@@ -1,10 +1,11 @@
-﻿using System;
+﻿using ClosedXML.Excel;
+using QuestPDF.Fluent;
+using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using UP01_Ilamakov_Payment.Pages;
-using ClosedXML.Excel;
 
 namespace UP01_523_Ilamakov_Payment.Pages
 {
@@ -331,6 +332,125 @@ namespace UP01_523_Ilamakov_Payment.Pages
                 MessageBox.Show("Ошибка экспорта:\n" + ex.Message, "Ошибка");
             }
         }
+
+        private void ButtonExportPdf_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var dialog = new Microsoft.Win32.SaveFileDialog
+                {
+                    Filter = "PDF файлы (*.pdf)|*.pdf",
+                    FileName = $"Платежи_{DateTime.Now:yyyy-MM-dd}.pdf"
+                };
+
+                if (dialog.ShowDialog() != true) return;
+
+                using (var db = new DB_Ilamakov_523_PaymentEntities())
+                {
+                    var data = db.Payments
+                        .Include("Category")
+                        .Include("User")
+                        .OrderByDescending(p => p.Date)
+                        .ToList();
+
+                    QuestPDF.Settings.License =
+                        QuestPDF.Infrastructure.LicenseType.Community;
+
+                    QuestPDF.Fluent.Document.Create(container =>
+                    {
+                        container.Page(page =>
+                        {
+                            page.Size(842, 595, QuestPDF.Infrastructure.Unit.Point);
+                            page.Margin(20);
+                            page.DefaultTextStyle(x => x.FontSize(9));
+
+                            page.Header()
+                                .AlignCenter()
+                                .Text("Отчёт по платежам")
+                                .Bold()
+                                .FontSize(16);
+
+                            page.Content().Column(column =>
+                            {
+                                column.Item().PaddingBottom(10)
+                                    .Text($"Дата формирования: {DateTime.Now:dd.MM.yyyy HH:mm}");
+
+                                column.Item().Table(table =>
+                                {
+                                    table.ColumnsDefinition(columns =>
+                                    {
+                                        columns.ConstantColumn(30);
+                                        columns.ConstantColumn(65);
+                                        columns.RelativeColumn(1.5f);
+                                        columns.RelativeColumn(1.5f);
+                                        columns.RelativeColumn(1.2f);
+                                        columns.ConstantColumn(45);
+                                        columns.ConstantColumn(60);
+                                        columns.ConstantColumn(65);
+                                    });
+
+                                    string[] headers =
+                                    {
+                                "ID", "Дата", "Пользователь", "Название",
+                                "Категория", "Кол-во", "Цена", "Сумма"
+                            };
+
+                                    table.Header(header =>
+                                    {
+                                        foreach (var text in headers)
+                                        {
+                                            header.Cell()
+                                                .Background("#0198AF")
+                                                .Padding(5)
+                                                .Text(text)
+                                                .FontColor("#FFFFFF")
+                                                .Bold();
+                                        }
+                                    });
+
+                                    foreach (var p in data)
+                                    {
+                                        table.Cell().Padding(4).Text(p.ID.ToString());
+                                        table.Cell().Padding(4).Text(p.Date.ToString("dd.MM.yyyy"));
+                                        table.Cell().Padding(4).Text(p.User?.FIO ?? "");
+                                        table.Cell().Padding(4).Text(p.Name ?? "");
+                                        table.Cell().Padding(4).Text(p.Category?.Name ?? "");
+                                        table.Cell().Padding(4).Text(p.Num.ToString());
+                                        table.Cell().Padding(4).Text(p.Price.ToString("0.00"));
+                                        table.Cell().Padding(4).Text((p.Num * p.Price).ToString("0.00"));
+                                    }
+                                });
+                            });
+
+                            page.Footer()
+                                .AlignCenter()
+                                .Text(text =>
+                                {
+                                    text.Span("Страница ");
+                                    text.CurrentPageNumber();
+                                    text.Span(" из ");
+                                    text.TotalPages();
+                                });
+                        });
+                    }).GeneratePdf(dialog.FileName);
+                }
+
+                MessageBox.Show(
+                    "Отчёт успешно экспортирован в PDF!",
+                    "Успех",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Ошибка экспорта:\n" + ex.Message,
+                    "Ошибка",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+        }
+
 
 
         private void ButtonChangePass_Click(object sender, RoutedEventArgs e)
