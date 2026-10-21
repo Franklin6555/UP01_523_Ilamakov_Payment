@@ -60,9 +60,9 @@ namespace UP01_523_Ilamakov_Payment.Pages
                     {
                         p.ID,
                         p.Date,
-                        p.User,
+                        User = p.User,
                         p.Name,
-                        p.Category,
+                        Category = p.Category,
                         p.Num,
                         p.Price,
                         Total = p.Num * p.Price,
@@ -142,7 +142,7 @@ namespace UP01_523_Ilamakov_Payment.Pages
                     int id = selected.ID;
                     var payment = db.Payments.FirstOrDefault(p => p.ID == id);
                     if (payment != null)
-                    {   
+                    {
                         db.Payments.Remove(payment);
                         db.SaveChanges();
                         MessageBox.Show("Запись удалена", "Успех");
@@ -465,10 +465,6 @@ namespace UP01_523_Ilamakov_Payment.Pages
 
             if (result == MessageBoxResult.Yes)
                 NavigationService?.Navigate(new AuthPage());
-        }
-        private void ButtonUsers_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService?.Navigate(new UserManagementPage());
         }
     }
 }
