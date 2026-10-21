@@ -450,8 +450,10 @@ namespace UP01_523_Ilamakov_Payment.Pages
                     MessageBoxImage.Error);
             }
         }
-
-
+        private void ButtonCategories_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService?.Navigate(new CategoryPage());
+        }
 
         private void ButtonChangePass_Click(object sender, RoutedEventArgs e)
         {

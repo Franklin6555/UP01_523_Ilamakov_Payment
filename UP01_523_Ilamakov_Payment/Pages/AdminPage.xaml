@@ -8,6 +8,10 @@
       Background="{StaticResource BackgroundBrush}">
 
     <Grid Margin="15">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="317*"/>
+            <ColumnDefinition Width="671*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -20,10 +24,10 @@
                    FontSize="20"
                    FontWeight="Bold"
                    Margin="0,0,0,12"
-                   Grid.Row="0"/>
+                   Grid.Row="0" Grid.ColumnSpan="2"/>
 
         <!-- Панель инструментов -->
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,0,0,12">
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,0,0,12" Grid.ColumnSpan="2">
             <TextBox x:Name="TextBoxSearch"
                      Width="200"
                      Height="34"
@@ -49,6 +53,9 @@
 
             <Button Content="Сбросить" Width="100" Margin="8,0,0,0"
                     Click="ButtonReset_Click" Background="{StaticResource GrayBrush}"/>
+
+            <Button Content="Категории" Width="120" Margin="8,0,0,0"
+                    Click="ButtonCategories_Click" Background="{StaticResource SecondaryBrush}"/>
         </StackPanel>
 
         <!-- Таблица -->
@@ -62,7 +69,7 @@
                   GridLinesVisibility="Horizontal"
                   BorderBrush="{StaticResource PrimaryBrush}"
                   BorderThickness="1"
-                  MouseDoubleClick="DataGridPayments_MouseDoubleClick">
+                  MouseDoubleClick="DataGridPayments_MouseDoubleClick" Grid.ColumnSpan="2" Margin="0,0,0,63" Grid.RowSpan="2">
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="50"/>
@@ -77,8 +84,7 @@
         </DataGrid>
 
         <!-- Нижняя панель -->
-        <!-- Нижняя панель -->
-        <DockPanel Grid.Row="3" Margin="0,12,0,0" LastChildFill="False">
+        <DockPanel Grid.Row="3" Margin="0,12,0,0" LastChildFill="False" Grid.ColumnSpan="2">
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
                 <Button Content="Диаграмма" Width="130" Click="ButtonChart_Click"
                 Background="{StaticResource SecondaryBrush}"/>

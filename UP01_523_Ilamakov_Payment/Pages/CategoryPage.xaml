@@ -1,0 +1,54 @@
+﻿<Page x:Class="UP01_523_Ilamakov_Payment.Pages.CategoryPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d"
+      Title="Управление категориями"
+      Background="{StaticResource BackgroundBrush}">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Управление категориями"
+                   FontSize="22"
+                   FontWeight="Bold"
+                   Margin="0,0,0,15"
+                   Grid.Row="0"/>
+
+        <!-- Панель кнопок -->
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,0,0,15">
+            <Button Content="Добавить" Width="120" Click="ButtonAdd_Click"/>
+            <Button Content="Редактировать" Width="130" Margin="8,0,0,0"
+                    Click="ButtonEdit_Click" Background="{StaticResource AccentBrush}"/>
+            <Button Content="Удалить" Width="120" Margin="8,0,0,0"
+                    Click="ButtonDelete_Click" Background="{StaticResource DangerBrush}"/>
+            <Button Content="Назад" Width="110" Margin="8,0,0,0"
+                    Click="ButtonBack_Click" Background="{StaticResource GrayBrush}"/>
+        </StackPanel>
+
+        <!-- Таблица категорий -->
+        <DataGrid x:Name="DataGridCategories"
+                  Grid.Row="2"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  CanUserAddRows="False"
+                  SelectionMode="Single"
+                  HeadersVisibility="Column"
+                  GridLinesVisibility="Horizontal"
+                  BorderBrush="{StaticResource PrimaryBrush}"
+                  BorderThickness="1"
+                  MouseDoubleClick="DataGridCategories_MouseDoubleClick">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="80"/>
+                <DataGridTextColumn Header="Название категории" Binding="{Binding Name}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>
