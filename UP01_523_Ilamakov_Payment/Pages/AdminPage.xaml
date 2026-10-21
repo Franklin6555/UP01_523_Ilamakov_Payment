@@ -77,17 +77,23 @@
         </DataGrid>
 
         <!-- Нижняя панель -->
-        <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="0,12,0,0" HorizontalAlignment="Right">
-            <Button Content="Диаграмма" Width="130" Click="ButtonChart_Click"
-                    Background="{StaticResource SecondaryBrush}"/>
-            <Button Content="Экспорт Word" Width="130" Margin="8,0,0,0"
-                    Click="ButtonExportWord_Click"/>
-            <Button Content="Экспорт Excel" Width="130" Margin="8,0,0,0"
-                    Click="ButtonExportExcel_Click"/>
-            <Button Content="Сменить пароль" Width="140" Margin="8,0,0,0"
-                    Click="ButtonChangePass_Click" Background="{StaticResource AccentBrush}"/>
-            <Button Content="Выйти" Width="110" Margin="8,0,0,0"
-                    Click="ButtonLogout_Click" Background="{StaticResource DangerBrush}"/>
-        </StackPanel>
+        <!-- Нижняя панель -->
+        <DockPanel Grid.Row="3" Margin="0,12,0,0" LastChildFill="False">
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                <Button Content="Диаграмма" Width="130" Click="ButtonChart_Click"
+                Background="{StaticResource SecondaryBrush}"/>
+                <Button Content="Экспорт Word" Width="130" Margin="8,0,0,0"
+                Click="ButtonExportWord_Click"/>
+                <Button Content="Экспорт Excel" Width="130" Margin="8,0,0,0"
+                Click="ButtonExportExcel_Click"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+                <Button Content="Сменить пароль" Width="140"
+                Click="ButtonChangePass_Click" Background="{StaticResource AccentBrush}"/>
+                <Button Content="Выйти" Width="110" Margin="8,0,0,0"
+                Click="ButtonLogout_Click" Background="{StaticResource DangerBrush}"/>
+            </StackPanel>
+        </DockPanel>
     </Grid>
 </Page>

@@ -161,7 +161,9 @@ namespace UP01_523_Ilamakov_Payment.Pages
 
         private void ButtonChart_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Позже");
+            var window = new ChartWindow();
+            window.Owner = Window.GetWindow(this);
+            window.ShowDialog();
         }
 
         private void ButtonExportWord_Click(object sender, RoutedEventArgs e)
