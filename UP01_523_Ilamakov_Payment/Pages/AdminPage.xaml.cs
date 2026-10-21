@@ -168,64 +168,7 @@ namespace UP01_523_Ilamakov_Payment.Pages
 
         private void ButtonExportWord_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                var dialog = new Microsoft.Win32.SaveFileDialog
-                {
-                    Filter = "Документ Word (*.doc)|*.doc",
-                    FileName = $"Отчёт_платежи_{DateTime.Now:yyyy-MM-dd}.doc"
-                };
-
-                if (dialog.ShowDialog() != true) return;
-
-                using (var db = new DB_Ilamakov_523_PaymentEntities())
-                {
-                    var data = db.Payments
-                        .Include("Category")
-                        .Include("User")
-                        .OrderByDescending(p => p.Date)
-                        .ToList();
-
-                    var sb = new System.Text.StringBuilder();
-
-                    sb.AppendLine("<html>");
-                    sb.AppendLine("<head><meta charset='utf-8'></head>");
-                    sb.AppendLine("<body>");
-                    sb.AppendLine("<h2 style='text-align:center;'>Отчёт по платежам</h2>");
-                    sb.AppendLine($"<p>Дата формирования: {DateTime.Now:dd.MM.yyyy HH:mm}</p>");
-                    sb.AppendLine("<table border='1' cellpadding='5' cellspacing='0' style='border-collapse:collapse; width:100%;'>");
-                    sb.AppendLine("<tr style='background-color:#0198AF; color:white;'>");
-                    sb.AppendLine("<th>ID</th><th>Дата</th><th>Пользователь</th><th>Название</th><th>Категория</th><th>Кол-во</th><th>Цена</th><th>Сумма</th>");
-                    sb.AppendLine("</tr>");
-
-                    foreach (var p in data)
-                    {
-                        sb.AppendLine("<tr>");
-                        sb.AppendLine($"<td>{p.ID}</td>");
-                        sb.AppendLine($"<td>{p.Date:dd.MM.yyyy}</td>");
-                        sb.AppendLine($"<td>{p.User?.FIO}</td>");
-                        sb.AppendLine($"<td>{p.Name}</td>");
-                        sb.AppendLine($"<td>{p.Category?.Name}</td>");
-                        sb.AppendLine($"<td>{p.Num}</td>");
-                        sb.AppendLine($"<td>{p.Price}</td>");
-                        sb.AppendLine($"<td>{p.Num * p.Price}</td>");
-                        sb.AppendLine("</tr>");
-                    }
-
-                    sb.AppendLine("</table>");
-                    sb.AppendLine("</body></html>");
-
-                    System.IO.File.WriteAllText(dialog.FileName, sb.ToString(),
-                        new System.Text.UTF8Encoding(true));
-                }
-
-                MessageBox.Show("Отчёт успешно экспортирован в Word!", "Успех",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Ошибка экспорта:\n" + ex.Message, "Ошибка");
-            }
+            MessageBox.Show("Позже");
         }
 
         private void ButtonExportExcel_Click(object sender, RoutedEventArgs e)
