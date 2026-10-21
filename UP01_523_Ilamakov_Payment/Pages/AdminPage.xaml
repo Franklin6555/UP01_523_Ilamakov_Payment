@@ -91,6 +91,11 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+                <Button Content="Пользователи"
+                 Width="120"
+                 Margin="8,0,0,0"
+                 Click="ButtonUsers_Click"
+                 Background="{StaticResource PrimaryBrush}"/>
                 <Button Content="Сменить пароль" Width="140"
                 Click="ButtonChangePass_Click" Background="{StaticResource AccentBrush}"/>
                 <Button Content="Выйти" Width="110" Margin="8,0,0,0"

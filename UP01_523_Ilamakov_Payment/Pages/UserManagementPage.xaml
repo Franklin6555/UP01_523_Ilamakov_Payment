@@ -1,0 +1,79 @@
+﻿<Page x:Class="UP01_523_Ilamakov_Payment.Pages.UserManagementPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Управление пользователями"
+      Background="{StaticResource BackgroundBrush}">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <TextBlock Grid.Row="0"
+                   Text="Управление пользователями"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,20"/>
+
+        <!-- Описание -->
+        <TextBlock Grid.Row="1"
+                   Text="Выберите пользователя, чтобы изменить его данные или удалить запись."
+                   TextWrapping="Wrap"
+                   Margin="0,0,0,12"/>
+
+        <!-- Таблица пользователей -->
+        <DataGrid x:Name="DataGridUsers"
+                  Grid.Row="2"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  IsReadOnly="False"
+                  SelectionMode="Single"
+                  SelectionUnit="FullRow"
+                  HeadersVisibility="Column"
+                  Margin="0,0,0,15">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID"
+                                    Binding="{Binding ID}"
+                                    IsReadOnly="True"
+                                    Width="60"/>
+
+                <DataGridTextColumn Header="Логин"
+                                    Binding="{Binding Login, UpdateSourceTrigger=PropertyChanged}"
+                                    Width="*"/>
+
+                <DataGridTextColumn Header="ФИО"
+                                    Binding="{Binding FIO, UpdateSourceTrigger=PropertyChanged}"
+                                    Width="2*"/>
+
+                <DataGridTextColumn Header="Роль"
+                                    Binding="{Binding Role, UpdateSourceTrigger=PropertyChanged}"
+                                    Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Кнопки -->
+        <WrapPanel Grid.Row="3"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center">
+
+            <Button Content="Сохранить изменения"
+                    Width="175"
+                    Margin="5"
+                    Padding="8"
+                    Click="ButtonSave_Click"/>
+
+            <Button Content="Удалить пользователя"
+                    Width="175"
+                    Margin="5"
+                    Padding="8"
+                    Click="ButtonDelete_Click"/>
+        </WrapPanel>
+    </Grid>
+</Page>
