@@ -43,7 +43,7 @@ namespace UP01_523_Ilamakov_Payment
         }
         void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (MessageBox.Show("Вы уверены, что хотите закрыть окно?", "Message",
+            if (MessageBox.Show("Вы уверены, что хотите закрыть окно?", "Выход",
             MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.No)
                 e.Cancel = true;
             else
