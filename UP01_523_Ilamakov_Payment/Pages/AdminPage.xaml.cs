@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using UP01_Ilamakov_Payment.Pages;
+using ClosedXML.Excel;
 
 namespace UP01_523_Ilamakov_Payment.Pages
 {
@@ -234,8 +235,8 @@ namespace UP01_523_Ilamakov_Payment.Pages
             {
                 var dialog = new Microsoft.Win32.SaveFileDialog
                 {
-                    Filter = "Excel файлы (*.csv)|*.csv",
-                    FileName = $"Платежи_{DateTime.Now:yyyy-MM-dd}.csv"
+                    Filter = "Excel файлы (*.xlsx)|*.xlsx",
+                    FileName = $"Платежи_{DateTime.Now:yyyy-MM-dd}.xlsx"
                 };
 
                 if (dialog.ShowDialog() != true) return;
@@ -248,29 +249,51 @@ namespace UP01_523_Ilamakov_Payment.Pages
                         .OrderByDescending(p => p.Date)
                         .ToList();
 
-                    var sb = new System.Text.StringBuilder();
-                    // Заголовки
-                    sb.AppendLine("ID;Дата;Пользователь;Название;Категория;Количество;Цена;Сумма");
-
-                    foreach (var p in data)
+                    using (var workbook = new ClosedXML.Excel.XLWorkbook())
                     {
-                        string line = $"{p.ID};" +
-                                      $"{p.Date:dd.MM.yyyy};" +
-                                      $"\"{p.User?.FIO}\";" +
-                                      $"\"{p.Name}\";" +
-                                      $"\"{p.Category?.Name}\";" +
-                                      $"{p.Num};" +
-                                      $"{p.Price};" +
-                                      $"{p.Num * p.Price}";
-                        sb.AppendLine(line);
-                    }
+                        var worksheet = workbook.Worksheets.Add("Платежи");
 
-                    // UTF-8 с BOM, чтобы Excel правильно открыл кириллицу
-                    System.IO.File.WriteAllText(dialog.FileName, sb.ToString(),
-                        new System.Text.UTF8Encoding(true));
+                        // Заголовки
+                        worksheet.Cell(1, 1).Value = "ID";
+                        worksheet.Cell(1, 2).Value = "Дата";
+                        worksheet.Cell(1, 3).Value = "Пользователь";
+                        worksheet.Cell(1, 4).Value = "Название";
+                        worksheet.Cell(1, 5).Value = "Категория";
+                        worksheet.Cell(1, 6).Value = "Количество";
+                        worksheet.Cell(1, 7).Value = "Цена";
+                        worksheet.Cell(1, 8).Value = "Сумма";
+
+                        // Стиль заголовков
+                        var headerRange = worksheet.Range(1, 1, 1, 8);
+                        headerRange.Style.Font.Bold = true;
+                        headerRange.Style.Fill.BackgroundColor = ClosedXML.Excel.XLColor.FromHtml("#0198AF");
+                        headerRange.Style.Font.FontColor = ClosedXML.Excel.XLColor.White;
+                        headerRange.Style.Alignment.Horizontal = ClosedXML.Excel.XLAlignmentHorizontalValues.Center;
+
+                        // Данные
+                        int row = 2;
+                        foreach (var p in data)
+                        {
+                            worksheet.Cell(row, 1).Value = p.ID;
+                            worksheet.Cell(row, 2).Value = p.Date;
+                            worksheet.Cell(row, 2).Style.DateFormat.Format = "dd.MM.yyyy";
+                            worksheet.Cell(row, 3).Value = p.User?.FIO;
+                            worksheet.Cell(row, 4).Value = p.Name;
+                            worksheet.Cell(row, 5).Value = p.Category?.Name;
+                            worksheet.Cell(row, 6).Value = p.Num;
+                            worksheet.Cell(row, 7).Value = p.Price;
+                            worksheet.Cell(row, 8).Value = p.Num * p.Price;
+                            row++;
+                        }
+
+                        // Автоширина столбцов
+                        worksheet.Columns().AdjustToContents();
+
+                        workbook.SaveAs(dialog.FileName);
+                    }
                 }
 
-                MessageBox.Show("Данные успешно экспортированы в Excel!", "Успех",
+                MessageBox.Show("Данные успешно экспортированы в Excel (.xlsx)!", "Успех",
                     MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
