@@ -9,7 +9,8 @@
         Height="700" Width="1200"
         MinHeight="650" MinWidth="1175"
         WindowStartupLocation="CenterScreen"
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded"
+        Icon="/res/wallet_icon.ico">
     
     <Grid>
         <Grid.RowDefinitions>
