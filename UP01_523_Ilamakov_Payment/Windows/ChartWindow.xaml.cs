@@ -34,10 +34,5 @@ namespace UP01_523_Ilamakov_Payment
                 Values = new ChartValues<decimal>(data.Select(x => x.Total));
             }
         }
-
-        private void ButtonClose_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
     }
 }

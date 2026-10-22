@@ -31,8 +31,5 @@
                 <lvc:Axis Title="Сумма (руб.)"/>
             </lvc:CartesianChart.AxisY>
         </lvc:CartesianChart>
-
-        <Button Content="Закрыть" Width="120" HorizontalAlignment="Right"
-                Grid.Row="2" Margin="0,15,0,0" Click="ButtonClose_Click"/>
     </Grid>
 </Window>
