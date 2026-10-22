@@ -33,7 +33,7 @@ namespace UP01_Ilamakov_Payment.Pages
         // Генерация капчи
         private void GenerateCaptcha()
         {
-            const string chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+            const string chars = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz23456789";
             var random = new Random();
             currentCaptcha = new string(Enumerable.Repeat(chars, 5)
                 .Select(s => s[random.Next(s.Length)]).ToArray());
@@ -67,7 +67,7 @@ namespace UP01_Ilamakov_Payment.Pages
             if (CaptchaPanel.Visibility == Visibility.Visible)
             {
                 if (string.IsNullOrWhiteSpace(TextBoxCaptcha.Text) ||
-                    TextBoxCaptcha.Text.ToUpper() != currentCaptcha)
+                    TextBoxCaptcha.Text != currentCaptcha)
                 {
                     MessageBox.Show("Неверный код капчи", "Ошибка",
                         MessageBoxButton.OK, MessageBoxImage.Warning);

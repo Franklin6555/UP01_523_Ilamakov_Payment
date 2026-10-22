@@ -6,7 +6,7 @@ namespace UP01_523_Ilamakov_Payment
 {
     public partial class PaymentEditWindow : Window
     {
-        private Payment payment;          // null = добавление, иначе редактирование
+        private Payment payment;
         public bool IsSaved { get; private set; } = false;
 
         public PaymentEditWindow(Payment paymentToEdit = null)
@@ -53,7 +53,6 @@ namespace UP01_523_Ilamakov_Payment
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
-            // Проверки
             if (ComboBoxUser.SelectedValue == null ||
                 ComboBoxCategory.SelectedValue == null ||
                 string.IsNullOrWhiteSpace(TextBoxName.Text) ||
@@ -82,7 +81,7 @@ namespace UP01_523_Ilamakov_Payment
             {
                 using (var db = new DB_Ilamakov_523_PaymentEntities())
                 {
-                    if (payment == null) // Добавление
+                    if (payment == null)
                     {
                         int newId = db.Payments.Any() ? db.Payments.Max(p => p.ID) + 1 : 1;
 
@@ -99,7 +98,7 @@ namespace UP01_523_Ilamakov_Payment
 
                         db.Payments.Add(newPayment);
                     }
-                    else // Редактирование
+                    else
                     {
                         var existing = db.Payments.FirstOrDefault(p => p.ID == payment.ID);
                         if (existing != null)
@@ -123,12 +122,6 @@ namespace UP01_523_Ilamakov_Payment
             {
                 MessageBox.Show("Ошибка сохранения:\n" + ex.Message, "Ошибка");
             }
-        }
-
-        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = false;
-            Close();
         }
     }
 }

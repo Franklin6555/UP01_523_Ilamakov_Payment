@@ -74,7 +74,7 @@ namespace UP01_523_Ilamakov_Payment.Pages
                     var cat = db.Categories.FirstOrDefault(c => c.ID == selected.ID);
                     if (cat != null)
                     {
-                        db.Categories.Remove(cat);   // платежи удалятся автоматически благодаря CASCADE
+                        db.Categories.Remove(cat);
                         db.SaveChanges();
                         MessageBox.Show("Категория и связанные платежи удалены", "Успех");
                         LoadCategories();

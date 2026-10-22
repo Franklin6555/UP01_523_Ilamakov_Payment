@@ -4,7 +4,8 @@
         Title="Платёж" Width="420"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
-        Background="{StaticResource BackgroundBrush}">
+        Background="{StaticResource BackgroundBrush}"
+         Icon="/res/wallet_icon.ico">
 
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -61,8 +62,6 @@
         <!-- Кнопки -->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="11">
             <Button Content="Сохранить" Width="120" Click="ButtonSave_Click"/>
-            <Button Content="Отмена" Width="100" Margin="10,0,0,0"
-                    Background="{StaticResource GrayBrush}" Click="ButtonCancel_Click"/>
         </StackPanel>
     </Grid>
 </Window>

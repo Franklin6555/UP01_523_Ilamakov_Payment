@@ -60,9 +60,9 @@ namespace UP01_523_Ilamakov_Payment.Pages
                     {
                         p.ID,
                         p.Date,
-                        User = p.User,
+                        p.User,
                         p.Name,
-                        Category = p.Category,
+                        p.Category,
                         p.Num,
                         p.Price,
                         Total = p.Num * p.Price,
@@ -163,12 +163,12 @@ namespace UP01_523_Ilamakov_Payment.Pages
 
         private void ButtonChart_Click(object sender, RoutedEventArgs e)
         {
-            var window = new ChartWindow();
-            window.Owner = Window.GetWindow(this);
+            var window = new ChartWindow
+            {
+                Owner = Window.GetWindow(this)
+            };
             window.ShowDialog();
         }
-
-
 
         private void ButtonExportWord_Click(object sender, RoutedEventArgs e)
         {
@@ -204,9 +204,9 @@ namespace UP01_523_Ilamakov_Payment.Pages
 
                         string[] headers =
                         {
-                    "ID", "Дата", "Пользователь", "Название",
-                    "Категория", "Кол-во", "Цена", "Сумма"
-                };
+                            "ID", "Дата", "Пользователь", "Название",
+                            "Категория", "Кол-во", "Цена", "Сумма"
+                        };
 
                         for (int i = 0; i < headers.Length; i++)
                         {
@@ -219,18 +219,17 @@ namespace UP01_523_Ilamakov_Payment.Pages
                         {
                             var p = data[i];
                             int row = i + 1;
-
                             string[] values =
                             {
-                        p.ID.ToString(),
-                        p.Date.ToString("dd.MM.yyyy"),
-                        p.User?.FIO ?? "",
-                        p.Name ?? "",
-                        p.Category?.Name ?? "",
-                        p.Num.ToString(),
-                        p.Price.ToString(),
-                        (p.Num * p.Price).ToString()
-                    };
+                                p.ID.ToString(),
+                                p.Date.ToString("dd.MM.yyyy"),
+                                p.User?.FIO ?? "",
+                                p.Name ?? "",
+                                p.Category?.Name ?? "",
+                                p.Num.ToString(),
+                                p.Price.ToString(),
+                                (p.Num * p.Price).ToString()
+                            };
 
                             for (int j = 0; j < values.Length; j++)
                             {

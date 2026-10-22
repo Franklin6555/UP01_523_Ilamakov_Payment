@@ -143,7 +143,7 @@
     <Compile Include="Pages\ChangePassPage.xaml.cs">
       <DependentUpon>ChangePassPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\PaymentEditWindow.xaml.cs">
+    <Compile Include="Windows\PaymentEditWindow.xaml.cs">
       <DependentUpon>PaymentEditWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\RegPage.xaml.cs">
@@ -202,7 +202,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\PaymentEditWindow.xaml">
+    <Page Include="Windows\PaymentEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

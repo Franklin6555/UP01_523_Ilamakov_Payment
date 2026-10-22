@@ -59,7 +59,7 @@ namespace UP01_523_Ilamakov_Payment.Pages
                     {
                         p.Date,
                         p.Name,
-                        Category = p.Category,
+                        p.Category,
                         p.Num,
                         p.Price,
                         Total = p.Num * p.Price

@@ -4,7 +4,8 @@
         Title="Пользователь" Height="480" Width="420"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
-        Background="{StaticResource BackgroundBrush}">
+        Background="{StaticResource BackgroundBrush}"
+         Icon="/res/wallet_icon.ico">
 
     <Grid Margin="20">
         <Grid.RowDefinitions>

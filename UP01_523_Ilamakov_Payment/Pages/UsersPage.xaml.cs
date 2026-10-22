@@ -47,7 +47,6 @@ namespace UP01_523_Ilamakov_Payment.Pages
                 return;
             }
 
-            // Нельзя удалить самого себя (текущего админа) — по желанию
             var result = MessageBox.Show(
                 $"Удалить пользователя «{selected.FIO ?? selected.Login}»?\n\n" +
                 "Все его платежи также будут удалены (каскадное удаление).",
@@ -62,7 +61,7 @@ namespace UP01_523_Ilamakov_Payment.Pages
                     var user = db.Users.FirstOrDefault(u => u.ID == selected.ID);
                     if (user != null)
                     {
-                        db.Users.Remove(user); // платежи удалятся каскадно
+                        db.Users.Remove(user);
                         db.SaveChanges();
                         MessageBox.Show("Пользователь и его платежи удалены", "Успех");
                         LoadUsers();

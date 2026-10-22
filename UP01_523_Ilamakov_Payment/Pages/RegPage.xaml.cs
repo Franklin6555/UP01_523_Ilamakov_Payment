@@ -15,7 +15,6 @@ namespace UP01_523_Ilamakov_Payment.Pages
 
         private void ButtonRegister_Click(object sender, RoutedEventArgs e)
         {
-            // Проверки
             if (string.IsNullOrWhiteSpace(TextBoxFIO.Text) ||
                 string.IsNullOrWhiteSpace(TextBoxLogin.Text) ||
                 string.IsNullOrWhiteSpace(PasswordBox.Password) ||
@@ -44,7 +43,6 @@ namespace UP01_523_Ilamakov_Payment.Pages
             {
                 using (var db = new DB_Ilamakov_523_PaymentEntities())
                 {
-                    // Проверка, существует ли уже такой логин
                     bool loginExists = db.Users.Any(u => u.Login == TextBoxLogin.Text);
                     if (loginExists)
                     {
@@ -53,7 +51,6 @@ namespace UP01_523_Ilamakov_Payment.Pages
                         return;
                     }
 
-                    // Генерация нового ID
                     int newId = db.Users.Any() ? db.Users.Max(u => u.ID) + 1 : 1;
 
                     var newUser = new User
@@ -72,7 +69,6 @@ namespace UP01_523_Ilamakov_Payment.Pages
                     MessageBox.Show("Регистрация прошла успешно!\nТеперь вы можете войти.", "Успех",
                         MessageBoxButton.OK, MessageBoxImage.Information);
 
-                    // Возврат на страницу авторизации
                     NavigationService?.Navigate(new AuthPage());
                 }
             }
@@ -80,11 +76,6 @@ namespace UP01_523_Ilamakov_Payment.Pages
             {
                 MessageBox.Show("Ошибка при регистрации:\n" + ex.Message, "Ошибка");
             }
-        }
-
-        private void ButtonBack_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService?.Navigate(new AuthPage());
         }
     }
 }

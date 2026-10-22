@@ -4,7 +4,8 @@
         Title="Категория" Height="250" Width="400"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
-        Background="{StaticResource BackgroundBrush}">
+        Background="{StaticResource BackgroundBrush}"
+        Icon="/res/wallet_icon.ico">
 
     <Grid Margin="20">
         <Grid.RowDefinitions>

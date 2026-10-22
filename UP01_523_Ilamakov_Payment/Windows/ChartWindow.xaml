@@ -5,7 +5,8 @@
         Title="Диаграмма платежей по категориям"
         Height="500" Width="700"
         WindowStartupLocation="CenterOwner"
-        Background="{StaticResource BackgroundBrush}">
+        Background="{StaticResource BackgroundBrush}"
+         Icon="/res/wallet_icon.ico">
 
     <Grid Margin="20">
         <Grid.RowDefinitions>

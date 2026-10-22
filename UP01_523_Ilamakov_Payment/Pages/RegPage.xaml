@@ -43,21 +43,13 @@
         <!-- Подтверждение пароля -->
         <Label Content="Подтверждение пароля" Grid.Row="7" Margin="0,0,0,4"/>
         <PasswordBox x:Name="PasswordBoxConfirm" Grid.Row="8" ToolTip="Повторите пароль" Margin="0,0,0,20"/>
-
-        <!-- Кнопки -->
+        
         <StackPanel Grid.Row="9" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button x:Name="ButtonRegister"
                     Content="Зарегистрироваться"
                     Width="180"
                     Click="ButtonRegister_Click"
                     ToolTip="Создать аккаунт"/>
-
-            <Button x:Name="ButtonBack"
-                    Content="Назад"
-                    Width="120"
-                    Click="ButtonBack_Click"
-                    Background="{StaticResource GrayBrush}"
-                    ToolTip="Вернуться к авторизации"/>
         </StackPanel>
     </Grid>
 </Page>
